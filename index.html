@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Life Tracker — PWA</title>
+
+  <!-- Chart.js and jsPDF -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Manifest (works on hosted site) -->
+  <link rel="manifest" href="manifest.json">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+</head>
+<body>
+
+<!-- LANDING -->
+<div id="landing" class="center full">
+  <div id="enterBtn" class="landing-box">
+    <h1>Life Tracker</h1>
+    <p>Click to Enter</p>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" class="hidden app-root">
+
+  <header class="top">
+    <h2 id="appTitle" contenteditable="true">My Weekly Life Tracker</h2>
+
+    <div class="menu">
+      <button id="pdfDailyBtn">Daily PDF</button>
+      <button id="pdfWeeklyBtn">Weekly PDF</button>
+      <button id="pdfMonthlyBtn">Monthly PDF</button>
+      <button id="installBtn" style="display:none">Install App</button>
+    </div>
+  </header>
+
+  <div id="clock" class="clock"></div>
+
+  <main>
+    <!-- WEEK -->
+    <section class="box">
+      <h3>Weekly Progress: <span id="weeklyPercent">0%</span></h3>
+      <div id="week" class="week"></div>
+    </section>
+
+    <!-- DAILY -->
+    <section class="box">
+      <h3 id="dayTitle">Day</h3>
+
+      <div class="alarms">
+        <label><input id="alarmMorning" type="checkbox"> 06:00 Alarm</label>
+        <label><input id="alarmNight"  type="checkbox"> 22:00 Alarm</label>
+      </div>
+
+      <h4>Morning Routine (06:00–08:00)</h4>
+      <canvas id="morningChart" style="max-width:420px"></canvas>
+      <div id="morningTasks" class="task-list"></div>
+
+      <h4>Daily Schedule</h4>
+      <div id="schedule" class="task-list"></div>
+
+      <h4>Notes</h4>
+      <textarea id="notes" rows="3"></textarea>
+
+      <h4>Money Tracker</h4>
+      <select id="moneyCategory">
+        <option>Food</option>
+        <option>Travel</option>
+        <option>Entertainment</option>
+        <option>Other</option>
+      </select>
+      <input id="moneyAmount" type="number" placeholder="Amount">
+      <button id="addExpenseBtn">Add Expense</button>
+      <div id="expenses"></div>
+    </section>
+
+    <!-- Monthly Analytics -->
+    <section class="box" id="monthlyBox">
+      <h3>Monthly Analytics</h3>
+      <canvas id="monthlyChart" style="max-width:760px"></canvas>
+      <div id="monthlySummary"></div>
+    </section>
+  </main>
+
+  <footer class="box">
+    <small>Data stored locally on this device (localStorage). To install as PWA host on HTTPS / localhost.</small>
+  </footer>
+
+</div>
+
+<!-- Hidden audio used for alarm -->
+<audio id="alarmTone" preload="auto">
+  <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" type="audio/ogg">
+  <!-- fallback beep if audio not available -->
+</audio>
+
+<!-- App script -->
+<script src="app.js"></script>
+</body>
+</html>
